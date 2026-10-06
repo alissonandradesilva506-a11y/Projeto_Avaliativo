@@ -1,0 +1,18 @@
+CREATE TABLE hospedes (
+    id_hospede SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(150) UNIQUE NOT NULL,
+    telefone VARCHAR(20)
+);
+
+CREATE TABLE reservas (
+    id_reserva SERIAL PRIMARY KEY,
+    id_hospede INTEGER NOT NULL,
+    data_checkin DATE NOT NULL,
+    data_checkout DATE NOT NULL,
+    valor_diaria NUMERIC(10,2) NOT NULL,
+    status VARCHAR(20) DEFAULT 'ATIVA',
+
+    FOREIGN KEY (id_hospede)
+        REFERENCES hospedes(id_hospede)
+);
