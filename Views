@@ -1,0 +1,25 @@
+CREATE OR REPLACE VIEW vw_reservas_ativas AS
+SELECT 
+    r.id_reserva,
+    h.id_hospede,
+    h.nome AS nome_hospede,
+    h.email,
+    h.telefone,
+    r.data_checkin,
+    r.data_checkout,
+    r.valor_diaria,
+    (r.data_checkout - r.data_checkin) AS total_noites,
+    ((r.data_checkout - r.data_checkin) * r.valor_diaria) AS valor_total_estimado
+FROM reservas r
+JOIN hospedes h ON r.id_hospede = h.id_hospede
+WHERE r.status = 'ATIVA';
+
+CREATE OR REPLACE VIEW vw_resumo_gastos_hospedes AS
+SELECT 
+    h.id_hospede,
+    h.nome,
+    COUNT(r.id_reserva) AS quantidade_reservas,
+    COALESCE(SUM((r.data_checkout - r.data_checkin) * r.valor_diaria), 0.00) AS valor_total_gasto
+FROM hospedes h
+LEFT JOIN reservas r ON h.id_hospede = r.id_hospede AND r.status != 'CANCELADA'
+GROUP BY h.id_hospede, h.nome;
