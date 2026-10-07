@@ -1,0 +1,46 @@
+CREATE OR REPLACE FUNCTION fn_calcular_valor_reserva(p_id_reserva INTEGER)
+RETURNS NUMERIC(10,2) AS $$
+DECLARE
+    v_total NUMERIC(10,2);
+BEGIN
+    SELECT ((data_checkout - data_checkin) * valor_diaria)
+    INTO v_total
+    FROM reservas
+    WHERE id_reserva = p_id_reserva;
+    
+    RETURN COALESCE(v_total, 0.00);
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION fn_hospede_tem_reserva_ativa(p_id_hospede INTEGER)
+RETURNS BOOLEAN AS $$
+DECLARE
+    v_existe BOOLEAN;
+BEGIN
+    SELECT EXISTS (
+        SELECT 1 
+        FROM reservas 
+        WHERE id_hospede = p_id_hospede 
+          AND status = 'ATIVA'
+    ) INTO v_existe;
+    
+    RETURN v_existe;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION fn_total_reservas_no_periodo(p_data_inicio DATE, p_data_fim DATE)
+RETURNS INTEGER AS $$
+DECLARE
+    v_total_ocupado INTEGER;
+BEGIN
+    -- Conta reservas que se sobrepõem ao período enviado
+    SELECT COUNT(*)
+    INTO v_total_ocupado
+    FROM reservas
+    WHERE status = 'ATIVA'
+      AND data_checkin < p_data_fim 
+      AND data_checkout > p_data_inicio;
+
+    RETURN v_total_ocupado;
+END;
+$$ LANGUAGE plpgsql;
