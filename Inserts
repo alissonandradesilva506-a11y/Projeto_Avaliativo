@@ -1,0 +1,44 @@
+INSERT INTO hospedes (nome, email, telefone)
+VALUES
+    ('Kaliane Kinyo', 'kali@email.com', '86999990001'),
+    ('Silvan Brando', 'silvan@email.com', '86999990002'),
+    ('Ubiratan Yawar', 'ubi@email.com', '86999990003'),
+    ('Ariadna Xispe', 'ari@email.com', '86999990004'),
+    ('Valentina Costa', 'val@email.com', '86999990005'),
+    ('Sayari Namira', 'saya@email.com', '86999990006'),
+    ('Romão Medeiro', 'romao@email.com', '86999990007'),
+    ('Ubiratan Yawar', 'ubi@email.com', '86999990008'),
+    ('Ariadna Xispe', 'ari@email.com', '86999990009'),
+    ('Valentina Costa', 'val@email.com', '86999990010'),
+    ('Kaliane Kinyo', 'kali@email.com', '86999990011'),
+    ('Silvan Brando', 'silvan@email.com', '86999990012'),
+    ('Ubiratan Yawar', 'ubi@email.com', '86999990013'),
+    ('Ariadna Xispe', 'ari@email.com', '86999990014'),
+    ('Valentina Costa', 'val@email.com', '86999990015'),
+    ('Kaliane Kinyo', 'kali@email.com', '86999990016'),
+    ('Silvan Brando', 'silvan@email.com', '86999990017'),
+    ('Ubiratan Yawar', 'ubi@email.com', '86999990018'),
+    ('Ariadna Xispe', 'ari@email.com', '86999990019'),
+    ('Valentina Costa', 'val@email.com', '86999990020'),
+    ('Kaliane Kinyo', 'kali@email.com', '86999990021'),
+    ('Silvan Brando', 'silvan@email.com', '86999990022'),
+    ('Ubiratan Yawar', 'ubi@email.com', '86999990023'),
+    ('Ariadna Xispe', 'ari@email.com', '86999990024'),
+    ('Valentina Costa', 'val@email.com', '86999990025'),
+    ('Kaliane Kinyo', 'kali@email.com', '86999990026'),
+    ('Angelo Brando', 'angin@email.com', '86999990027'),
+    ('Ubiratan Yawar', 'ubi@email.com', '86999990028'),
+    ('Ariadna Xispe', 'ari@email.com', '86999990029'),
+    ('Valentina Costa', 'val@email.com', '86999990030');
+
+INSERT INTO reservas (
+    id_hospede,
+    data_checkin,
+    data_checkout,
+    valor_diaria,
+    status
+)
+VALUES
+    (1, '2026-10-10', '2026-10-13', 250.00, 'ATIVA'),
+    (2, '2026-10-15', '2026-10-18', 300.00, 'ATIVA'),
+    (3, '2026-11-05', '2026-11-07', 200.00, 'ATIVA');
