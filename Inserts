@@ -6,30 +6,30 @@ VALUES
     ('Ariadna Xispe', 'ari@email.com', '86999990004'),
     ('Valentina Costa', 'val@email.com', '86999990005'),
     ('Sayari Namira', 'saya@email.com', '86999990006'),
-    ('Romão Medeiro', 'romao@email.com', '86999990007'),
-    ('Ubiratan Yawar', 'ubi@email.com', '86999990008'),
-    ('Ariadna Xispe', 'ari@email.com', '86999990009'),
-    ('Valentina Costa', 'val@email.com', '86999990010'),
-    ('Kaliane Kinyo', 'kali@email.com', '86999990011'),
-    ('Silvan Brando', 'silvan@email.com', '86999990012'),
-    ('Ubiratan Yawar', 'ubi@email.com', '86999990013'),
-    ('Ariadna Xispe', 'ari@email.com', '86999990014'),
-    ('Valentina Costa', 'val@email.com', '86999990015'),
-    ('Kaliane Kinyo', 'kali@email.com', '86999990016'),
-    ('Silvan Brando', 'silvan@email.com', '86999990017'),
-    ('Ubiratan Yawar', 'ubi@email.com', '86999990018'),
-    ('Ariadna Xispe', 'ari@email.com', '86999990019'),
-    ('Valentina Costa', 'val@email.com', '86999990020'),
-    ('Kaliane Kinyo', 'kali@email.com', '86999990021'),
-    ('Silvan Brando', 'silvan@email.com', '86999990022'),
-    ('Ubiratan Yawar', 'ubi@email.com', '86999990023'),
-    ('Ariadna Xispe', 'ari@email.com', '86999990024'),
-    ('Valentina Costa', 'val@email.com', '86999990025'),
-    ('Kaliane Kinyo', 'kali@email.com', '86999990026'),
+    ('Romão Medeiro', 'rom@email.com', '86999990007'),
+    ('Ayane Lesma', 'aya@email.com', '86999990008'),
+    ('Bélio Pixis', 'bel@email.com', '86999990009'),
+    ('Alvaro Cristo', 'alv@email.com', '86999990010'),
+    ('Shota Nakama', 'sho@email.com', '86999990011'),
+    ('Judia Pinto', 'jud@email.com', '86999990012'),
+    ('Ulisses Misto', 'uli@email.com', '86999990013'),
+    ('Nala Xapa', 'nal@email.com', '86999990014'),
+    ('Rúbia Coelho', 'rub@email.com', '86999990015'),
+    ('Kauan Silva', 'kau@email.com', '86999990016'),
+    ('Rian Silva', 'rian@email.com', '86999990017'),
+    ('Raul Carca', 'raul@email.com', '86999990018'),
+    ('Luan Gemado', 'lua@email.com', '86999990019'),
+    ('Vanda Grilo', 'van@email.com', '86999990020'),
+    ('Rosanna Kinyo', 'rosa@email.com', '86999990021'),
+    ('Francisco Grilo', 'chico@email.com', '86999990022'),
+    ('Kadu Vilobu', 'kad@email.com', '86999990023'),
+    ('Acrélio Xispe', 'acre@email.com', '86999990024'),
+    ('Sandro Tenório', 'san@email.com', '86999990025'),
+    ('Diogo De Niro', 'dio@email.com', '86999990026'),
     ('Angelo Brando', 'angin@email.com', '86999990027'),
     ('Ubiratan Yawar', 'ubi@email.com', '86999990028'),
-    ('Ariadna Xispe', 'ari@email.com', '86999990029'),
-    ('Valentina Costa', 'val@email.com', '86999990030');
+    ('Alessandra Xona', 'ale@email.com', '86999990029'),
+    ('Virgulino Firmino', 'vir@email.com', '86999990030');
 
 INSERT INTO reservas (
     id_hospede,
@@ -40,5 +40,32 @@ INSERT INTO reservas (
 )
 VALUES
     (1, '2026-10-10', '2026-10-13', 250.00, 'ATIVA'),
-    (2, '2026-10-15', '2026-10-18', 300.00, 'ATIVA'),
+    (25, '2026-10-15', '2026-10-18', 300.00, 'ATIVA'),
     (3, '2026-11-05', '2026-11-07', 200.00, 'ATIVA');
+    (4, '2026-10-10', '2026-10-13', 250.00, 'ATIVA'),
+    (5, '2026-10-15', '2026-10-18', 300.00, 'ATIVA'),
+    (16, '2026-11-05', '2026-11-07', 289.00, 'ATIVA');
+    (7, '2026-10-10', '2026-10-13', 250.00, 'ATIVA'),
+    (8, '2026-10-15', '2026-10-18', 300.00, 'ATIVA'),
+    (9, '2026-11-05', '2026-11-07', 200.00, 'ATIVA');
+    (10, '2026-10-10', '2026-10-13', 250.00, 'ATIVA'),
+    (11, '2026-10-15', '2026-10-18', 300.00, 'ATIVA'),
+    (17, '2026-11-05', '2026-11-07', 200.00, 'ATIVA');
+    (13, '2026-10-10', '2026-10-13', 250.00, 'ATIVA'),
+    (12, '2026-10-15', '2026-10-18', 300.00, 'ATIVA'),
+    (15, '2026-11-05', '2026-11-07', 200.00, 'ATIVA');
+    (16, '2026-10-10', '2026-10-13', 250.00, 'ATIVA'),
+    (14, '2026-10-15', '2026-10-18', 300.00, 'ATIVA'),
+    (18, '2026-11-05', '2026-11-07', 200.00, 'ATIVA');
+    (15, '2026-10-10', '2026-10-13', 250.00, 'ATIVA'),
+    (20, '2026-10-15', '2026-10-18', 300.00, 'ATIVA'),
+    (21, '2026-11-05', '2026-11-07', 340.00, 'ATIVA');
+    (22, '2026-10-10', '2026-10-13', 169.00, 'FINALIZADA'),
+    (2, '2026-10-15', '2026-10-18', 300.00, 'CANCELADA'),
+    (24, '2026-11-05', '2026-11-07', 200.00, 'ATIVA');
+    (23, '2026-10-10', '2026-10-13', 250.00, 'ATIVA'),
+    (26, '2026-10-15', '2026-10-18', 300.00, 'ATIVA'),
+    (30, '2026-11-05', '2026-11-07', 200.00, 'ATIVA');
+    (6, '2026-10-10', '2026-10-13', 250.00, 'ATIVA'),
+    (29, '2026-10-15', '2026-10-18', 300.00, 'ATIVA'),
+    (3, '2023-03-25', '2023-04-01', 230.00, 'FINALIZADA');
