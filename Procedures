@@ -1,0 +1,104 @@
+CREATE OR REPLACE PROCEDURE calcular_valor_descontado(
+  p_id_reserva INTEGER,  
+  p_desconto NUMERIC
+)
+LANGUAGE plpgsql
+AS $$
+DECLARE 
+  v_checkin DATE;
+  v_checkout DATE;
+  v_valor_diaria NUMERIC(10,2);
+  v_quantia_dias INTEGER;
+  v_valor_bruto NUMERIC(10,2);
+  v_valor_desconto NUMERIC(10,2);
+  v_valor_final NUMERIC(10,2);
+BEGIN
+
+  SELECT data_checkin, data_checkout, valor_diaria
+  INTO v_checkin, v_checkout, v_valor_diaria
+  FROM reservas
+  WHERE id_reserva = p_id_reserva; 
+
+  IF NOT FOUND THEN
+    RAISE NOTICE 'Reserva com ID % não encontrada', p_id_reserva;
+    RETURN;
+  END IF;
+
+  v_quantia_dias := v_checkout - v_checkin;
+  IF v_quantia_dias = 0 THEN
+    v_quantia_dias:=1;
+  END IF;
+
+  v_valor_bruto := v_quantia_dias*v_valor_diaria;
+  v_valor_desconto:=v_valor_bruto*(p_desconto/100);
+  v_valor_final:=v_valor_bruto-v_valor_desconto;
+
+  RAISE NOTICE 'Reserva:%|Valor Bruto:R$ %|Desconto(% %%):R$ %|Valor Final:R$ %', p_id_reserva, v_valor_bruto, p_desconto, v_valor_desconto, v_valor_final;
+
+END;
+$$;
+
+CREATE OR REPLACE PROCEDURE criar_reserva(
+  p_id_hospede INTEGER,
+  p_data_checkin DATE,
+  p_data_checkout DATE,
+  p_valor_diaria NUMERIC(10,2)
+)
+LANGUAGE plpgsql
+AS $$
+DECLARE 
+  v_existe_hospede BOOLEAN;
+BEGIN
+  
+  SELECT 1 INTO v_existe_hospede
+  FROM hospedes 
+  WHERE id_hospede = p_id_hospede;
+
+  IF v_existe_hospede IS NULL THEN
+    RAISE EXCEPTION 'Erro: Hóspede com ID % não encontrado', p_id_hospede;
+  END IF;
+
+  IF p_data_checkout <= p_data_checkin THEN 
+    RAISE EXCEPTION 'Erro: A data de check-out (%) deve ser posterior à data de check-in (%)', p_data_checkout,p_data_checkin;
+  END IF;
+
+  INSERT INTO reservas (id_hospede, data_checkin, data_checkout, valor_diaria, status)
+  VALUES (p_id_hospede, p_data_checkin, p_data_checkout, p_valor_diaria, 'ATIVA');
+
+END;
+$$;
+
+CREATE OR REPLACE PROCEDURE alterar_valor_diaria(
+  p_id_reserva INTEGER,
+  p_novo_valor NUMERIC(10,2)
+)
+LANGUAGE plpgsql
+AS $$
+DECLARE 
+  v_status VARCHAR(20);
+BEGIN 
+  
+  IF p_novo_valor <= 0 THEN 
+    RAISE EXCEPTION 'O novo valor da diária deve ser maior que zero';
+  END IF;
+
+  SELECT status INTO v_status
+  FROM reservas
+  WHERE id_reserva = p_id_reserva;
+
+  IF NOT FOUND THEN 
+    RAISE EXCEPTION 'Reserva com ID % não foi encontrada', p_id_reserva;
+  END IF;
+
+  IF v_status <> 'ATIVA' THEN
+    RAISE EXCEPTION 'Não é possível alterar o valor. A reserva não está ATIVA (Status atual: %).', v_status;
+  END IF;
+
+  UPDATE reservas
+  SET valor_diaria = p_novo_valor
+  WHERE id_reserva = p_id_reserva;
+
+  RAISE NOTICE 'Valor da diária da reserva % atualizado com sucesso para R$ %', p_id_reserva, p_novo_valor;
+
+END;
+$$;
