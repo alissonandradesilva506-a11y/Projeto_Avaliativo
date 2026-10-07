@@ -1,0 +1,23 @@
+!pip install supabase
+from supabase import create_client, Client
+
+SUPABASE_URL = "https://supabase.com"
+SUPABASE_KEY = "sb_publishable_BRPp4MRehuMgsh8od_MyGQ_4BsY8BCy"
+
+supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
+
+#CRUD
+novo_hospede = {"nome": "Analiz Silas", "email": "ana@email.com", "telefone": "86999777387"}
+nova_reserva = {"id_hospede": 5, "data_checkin": 2026-10-17, "data_checkout": 2026-10-20, "valor_diaria": 300,}
+dados_inseridos = supabase.table("hospede").insert(novo_hospede, nova_reserva).execute()
+
+todos_hospedes = supabase.table("hospedes").select("*").execute()
+print("Todos os hospedes:", todos_hospedes.data)
+todas_reservas = supabase.table("reservas").select("*").execute()
+print("Todas as reservas:", todas_reservas.data)
+
+hosp_atualizado = supabase.table("hospedes").update({"telefone": 86999788321}).eq("email", "ana@email.com").execute()
+rese_atualizada = supabase.table("reservas").update({"data_checkout": 2026-10-23}).eq("id_reserva", 31).execute()
+
+hosp_deletado = supabase.table("hospedes").delete().eq("email", "ana@email.com").execute()
+rese_deletada = supabase.table("reservas").delete().eq("id_reserva", 31).execute()
