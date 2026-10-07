@@ -23,3 +23,13 @@ SELECT
 FROM hospedes h
 LEFT JOIN reservas r ON h.id_hospede = r.id_hospede AND r.status != 'CANCELADA'
 GROUP BY h.id_hospede, h.nome;
+
+CREATE OR REPLACE VIEW vw_faturamento_mensal_projetado AS
+SELECT 
+    TO_CHAR(r.data_checkin, 'YYYY-MM') AS ano_mes,
+    COUNT(r.id_reserva) AS total_reservas,
+    SUM((r.data_checkout - r.data_checkin) * r.valor_diaria) AS faturamento_total
+FROM reservas r
+WHERE r.status != 'CANCELADA'
+GROUP BY TO_CHAR(r.data_checkin, 'YYYY-MM')
+ORDER BY ano_mes DESC;
