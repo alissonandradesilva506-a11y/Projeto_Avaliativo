@@ -1,4 +1,4 @@
-CREATE OR REPLACE PROCEDURE calcular_valor_descontado(
+CREATE OR REPLACE PROCEDURE pr_calcular_valor_descontado(
   p_id_reserva INTEGER,  
   p_desconto NUMERIC
 )
@@ -38,7 +38,7 @@ BEGIN
 END;
 $$;
 
-CREATE OR REPLACE PROCEDURE criar_reserva(
+CREATE OR REPLACE PROCEDURE pr_criar_reserva(
   p_id_hospede INTEGER,
   p_data_checkin DATE,
   p_data_checkout DATE,
@@ -68,7 +68,74 @@ BEGIN
 END;
 $$;
 
-CREATE OR REPLACE PROCEDURE alterar_valor_diaria(
+CREATE OR REPLACE PROCEDURE pr_cancelar_reserva(
+  p_id_reseva INTEGER
+)
+LANGUAGE plpgsql
+AS $$
+DECLARE
+  v_status_atual VARCHAR(20);
+BEGIN
+  SELECT status INTO v_status_atual FROM reservas WHERE p_id_reserva = id_reserva;
+
+  IF NOT FOUND THEN 
+    RAISE EXCEPTION 'Erro: Reserva com o ID % não foi encontrada.', p_id_reserva;
+
+  ELSIF v_status_atual = 'CANCELADA' THEN
+    RAISE EXCEPTION 'Erro: A reserva % já se encontra cancelada.', p_id_reserva;
+
+  ELSE 
+    UPDATE reservas 
+    SET status = 'CANCELADA'
+    WHERE p_id_reserva = id_reserva;
+
+    RAISE NOTICE 'Reserva % cancelada com sucesso', p_id_reserva;
+  END IF; 
+
+END;
+$$;
+
+CREATE OR REPLACE PROCEDURE pr_finalizar_reserva(
+  p_id_reserva INTEGER 
+)
+LANGUAGE plpgsql 
+AS $$
+DECLARE 
+  v_existe_reserva INTEGER;
+  v_checkin DATE;
+  v_checkout DATE;
+  v_valor_diaria NUMERIC(10,2);
+  v_quantia_dias INTEGER;
+  v_valor_total NUMERIC(10,2);
+BEGIN
+  SELECT 1 INTO v_existe_reserva FROM reservas
+  WHERE p_id_reserva = id_reserva;
+
+  IF NOT FOUND THEN 
+    RAISE EXCEPTION 'Erro: Reserva com o ID % não foi encontrada.', p_id_reserva;
+  ELSIF status <> 'ATIVA' THEN 
+    RAISE EXCEPTION 'Erro: Reserva com o ID % foi cancelada.', p_id_reserva;
+  ELSE 
+    UPDATE reservas 
+    SET status = 'FINALIZADA'
+    WHERE p_id_reserva = id_reserva;
+
+    RAISE NOTICE 'Reserva % finalizada com sucesso', p_id_reserva;
+  END IF;
+
+  v_quantia_dias := v_checkout - v_checkin;
+  IF v_quantia_dias = 0 THEN
+    v_quantia_dias:=1;
+  END IF;
+
+  v_valor_total := v_quantia_dias*v_valor_diaria;
+
+  RAISE NOTICE 'Reserva:%|Dias:%|Diária:%|Valor Total:R$ %', p_id_reserva, v_quantia_dias, v_valor_diaria, v_valor_total;
+
+END;
+$$;
+
+CREATE OR REPLACE PROCEDURE pr_alterar_valor_diaria(
   p_id_reserva INTEGER,
   p_novo_valor NUMERIC(10,2)
 )
